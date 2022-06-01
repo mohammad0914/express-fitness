@@ -17,9 +17,12 @@ describe("Basic Express app", ()=> {
     it("has a package.json file", ()=> {
         expect(fs.existsSync('./package.json')).toEqual(true)
     })
-    it("has a .env file", ()=> {
-        expect(fs.existsSync('./.env')).toEqual(true)
-    })
+    if (process.env.NODE_ENV !== 'test') {
+        it("has a .env file", ()=> {
+            expect(fs.existsSync('./.env')).toEqual(true)
+        })
+    }
+ 
     it("has a .gitignore file", ()=> {
         expect(fs.existsSync('./.gitignore')).toEqual(true)
     })
