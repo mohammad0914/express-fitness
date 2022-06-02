@@ -8,7 +8,7 @@ module.exports = [
       name: "Lost Sock Memorial Day",
       date: "May 9, 2022",
       description:
-        "Come together as a community to honor all the lost socks that have helped us with our fitness quests. Donate a lost sock, get a protein smoothie!",
+        "Come together as a community to honor all the lost socks that have helped us with our fitness quests. Donate a lost sock, and get a protein smoothie!",
     },
     {
       name: "Hallowhoa",
