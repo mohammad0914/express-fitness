@@ -2,19 +2,31 @@ const request = require("supertest");
 const fs = require("fs");
 
 const app = require("../app");
-const data = require("../sample-data");
+const data = require("./sample-data");
 
 // BASIC EXPRESS APP
 describe("Basic Express app", () => {
   it("has an app.js file", () => {
     expect(fs.existsSync("./app.js")).toEqual(true);
   });
+
   it("has a server.js file", () => {
     expect(fs.existsSync("./server.js")).toEqual(true);
   });
+
   it("has a package.json file", () => {
     expect(fs.existsSync("./package.json")).toEqual(true);
   });
+
+  it("has a .gitignore file", () => {
+    expect(fs.existsSync("./.gitignore")).toEqual(true);
+  });
+
+  it("sends a welcome message", async () => {
+    const response = await request(app).get("/");
+    expect(response.text).toEqual("Hello, world!");
+  });
+
   if (process.env.CIRCLECI) {
     it("does not have a .env file", () => {
       expect(fs.existsSync("./.env")).toEqual(false);
@@ -24,14 +36,6 @@ describe("Basic Express app", () => {
       expect(fs.existsSync("./.env")).toEqual(true);
     });
   }
-
-  it("has a .gitignore file", () => {
-    expect(fs.existsSync("./.gitignore")).toEqual(true);
-  });
-  it("sends a welcome message", async () => {
-    const response = await request(app).get("/");
-    expect(response.text).toEqual("Hello, world!");
-  });
 });
 
 // CONFIRM FILES AND FOLDERS
@@ -60,15 +64,19 @@ describe("Controllers are in correct folder and named correctly", () => {
       true
     );
   });
+
   it("has a persons controller", () => {
     expect(fs.existsSync("./controllers/persons.controller.js")).toEqual(true);
   });
+
   it("has a plans controller", () => {
     expect(fs.existsSync("./controllers/plans.controller.js")).toEqual(true);
   });
+
   it("has a machines controller", () => {
     expect(fs.existsSync("./controllers/machines.controller.js")).toEqual(true);
   });
+
   it("has a specialEvents controller", () => {
     expect(fs.existsSync("./controllers/special-events.controller.js")).toEqual(
       true
@@ -77,32 +85,33 @@ describe("Controllers are in correct folder and named correctly", () => {
 });
 
 describe("Each model has an index route", () => {
-  it("Has an index route for locations", async () => {
+  it("has an index route for locations", async () => {
     const response = await request(app).get("/locations");
     expect(response.body).toEqual(data.locations);
   });
 
-  it("Has an index route for people", async () => {
+  it("has an index route for people", async () => {
     const response = await request(app).get("/persons");
     expect(response.body).toEqual(data.persons);
   });
-  it("Has an index route for plans", async () => {
+
+  it("has an index route for plans", async () => {
     const response = await request(app).get("/plans");
     expect(response.body).toEqual(data.plans);
   });
-  it("Has an index route for machines", async () => {
+
+  it("has an index route for machines", async () => {
     const response = await request(app).get("/machines");
     expect(response.body).toEqual(data.machines);
   });
-  it("Has an index route for special events", async () => {
+
+  it("has an index route for special events", async () => {
     const response = await request(app).get("/special-events");
     expect(response.body).toEqual(data.specialEvents);
   });
 
-  it("Has a 404 route for non-matching urls, with the correct status code", async () => {
+  it("has a 404 route for non-matching urls, with the correct status code", async () => {
     const response = await request(app).get("/non-matching-url");
     expect(response.status).toEqual(404);
-    expect(response.error.text).toEqual("Sorry, no page found.");
   });
 });
-

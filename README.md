@@ -2,7 +2,7 @@
 
 A new fantastic fitness place called Express Fitness has just opened up.
 
-Your job will be to be to begin building a custom app that keeps track of numerous essential resources for the business-like - locations, people, special events, plans, and equipment.
+Your job will be to be to begin building a custom app that keeps track of numerous essential resources for the business such as locations, people, special events, plans, and workout machines.
 
 ## Lab Setup
 
@@ -12,11 +12,11 @@ Your job will be to be to begin building a custom app that keeps track of numero
 
 1. Navigate to the cloned repository's directory on your command line. Then, run the following command:
 
-```
-npm install
-```
+   ```
+   npm install
+   ```
 
-This will install the libraries needed to run the tests.
+   This will install the libraries needed to run the tests.
 
 1. Open up the repository in VSCode. Follow the instructions below to complete the Lab.
 
@@ -30,67 +30,56 @@ npm test
 
 ## Instructions
 
-### Getting Started
+To complete this lab, you must create a series of static data models and controllers. Each of those controllers will have a single route which returns all data from the model. Read the details below carefully to ensure that you name filenames and routes correctly.
+
+### Create your file structure
 
 Your goal is to organize your folders and files following the MVC architecture you've learned in class. Your final folder and file structure should look like this:
 
 ```
-├── __tests__
+├── __tests__/
 │  └── app.test.js
-├── controllers
+│  └── sample-data.js
+├── controllers/
 │  ├── locations.controller.js
 │  ├── machines.controller.js
 │  ├── persons.controller.js
 │  ├── plans.controller.js
 │  └── special-events.controller.js
-├── models
+├── models/
 │  ├── location.model.js
 │  ├── machine.model.js
 │  ├── person.model.js
 │  ├── plan.model.js
 │  └── special-event.model.js
-├── node_modules
+├── .env
+├── node_modules/
 ├── app.js
 ├── package-lock.json
 ├── package.json
 ├── README.md
-├── sample-data.js
 └── server.js
 ```
 
-**NOTE:** With Express, you are free to name your files and folders whatever you want. If you're going to name your `controllers` folder `asdf` and your `models` folder `batman` - you can. However, no one will understand how your code is organized with names that don't make sense/are not semantic(the name relates to what it is).
+> **Note:** With Express, you are free to name your files and folders whatever you want. For example, when it comes to controllers you may see `locations.controllers.js` or `locations.js` or `locationsController.js`. There is no one "right way" to name these files, however it is important to have a consistent and understandable naming scheme.
 
-Because Express is unopinionated, you will likely see various names for different files. For example, when it comes to controllers, you may see:
+### Create a basic Express application
 
-- birdController.js
-- birdsController.js
-- birds.js
-- birds-controller.js
-- birds-controllers.js
-- birds.controller.js
+Install the necessary `npm` packages and then build a basic Express server.
 
-When you join a company, they will have chosen a naming strategy, and you should follow it. Within your work, your naming should be consistent within each project.
+#### Generic route
 
-Within this project, it is expected that your controllers file names are `resources.controller.js`, where `resources` is the plural form of the resource - for example, `plans` should be `plans.controller.js`.
+Create the following generic route that is not tied to any specific resource.
 
-### Build a Basic Express App
+- `GET /`: Responds with `"Hello, world!"`.
 
-Install the necessary npm packages. Build a basic express server that says "Hello, world!" at the `/` route
+### Create models
 
-### Models
+For each model, make a folder with the appropriate file name. For example, for the `locations` resource create a file inside of the `models/` directory with the name `locations.model.js`. At this time, your model will simply be an array of data. Don't forget to export your model.
 
-Because Express is unopinionated, you will likely see various names for different files. For example, when it comes to controllers, you may see:
+> **Note:** Like with controllers, there is no one right way to name your model files. For example, when it comes to models you may see `location.model.js` or `location.js` or `LocationModel.js`. For this lab, follow the naming conventions that have been set out for you.
 
-- bird.js
-- birds.js
-- birdsModel.js
-- bird.model.js
-
-For each model, make a folder with the appropriate file name. E.g. `locations` should be a file located and named like so: `/models/location.model.js`.
-
-Be sure to export each 'model'.
-
-#### Locations
+#### Locations data
 
 ```js
 [
@@ -109,7 +98,7 @@ Be sure to export each 'model'.
 ];
 ```
 
-#### Persons
+#### Persons data
 
 ```js
 [
@@ -134,7 +123,7 @@ Be sure to export each 'model'.
 ];
 ```
 
-#### Plans
+#### Plans data
 
 ```js
 [
@@ -156,38 +145,35 @@ Be sure to export each 'model'.
 ];
 ```
 
-#### Machines
+#### Machines data
 
 ```js
 [
-[
- {
- brand: "Bowflex",
- model: "Bowflexer 4000",
- type: "Extreme Fitness Bench",
- purchased: 1986,
- location: 11101,
- },
- {
- brand: "Bowflex",
- model: "Bowflexer 4000",
- type: "Extreme Fitness Bench",
- purchased: 1996,
- location: 11101,
- },
- {
- brand: "Bowflex",
- model: "Bowflexer 4000",
- type: "Extreme Fitness Bench",
- purchased: 2006,
- location: 10011,
- },
+  {
+    brand: "Bowflex",
+    model: "Bowflexer 4000",
+    type: "Extreme Fitness Bench",
+    purchased: 1986,
+    location: 11101,
+  },
+  {
+    brand: "Bowflex",
+    model: "Bowflexer 4000",
+    type: "Extreme Fitness Bench",
+    purchased: 1996,
+    location: 11101,
+  },
+  {
+    brand: "Bowflex",
+    model: "Bowflexer 4000",
+    type: "Extreme Fitness Bench",
+    purchased: 2006,
+    location: 10011,
+  },
 ];
-
-
 ```
 
-#### Special Events
+#### Special events data
 
 ```js
 [
@@ -211,36 +197,30 @@ Be sure to export each 'model'.
 ];
 ```
 
-### Create Controllers for Each Model
+### Create controllers for each model
 
-Following the same file and folder structure as in class, create the correct files. E.g. `locations` should be `/controllers/locations.controller.js`.
+Following the same file and folder structure as in class, create the correct files. For example, the `locations` resource should be in the `controllers/` directory with the name `locations.controller.js`.
 
 Each controller should serve an index (an array of all of the objects of the resource) at the matching route.
 
-You should now be able to visit:
+Once you've built the route in each controller, you should be able to visit the URLs below and see data for the associated resource.
 
 - http://localhost:3333/locations
 - http://localhost:3333/people
 - http://localhost:3333/plans
 - http://localhost:3333/equipment
-- http://localhost:3333/specialEvents
+- http://localhost:3333/special-events
 
-And see the associated resource.
+### Create a Catch-all/404 Route
 
-### Create a Catchall/404 Route
+Add a catch-all route so that when the visited URL does not match any of the routes, a 404 response is sent. You may also wish to respond with a message for the user, such as `"Sorry, no page found!"`.
 
-Add a 404 route so that when the URL does not match any of the routes, there will be a "Sorry, no page found." message.
+## Bonuses
 
-### Bonuses
-
-If you are using a Mac and are creating, moving, or deleting files using the operating system/GUI (click and drag/create using two-finger clicks on the desktop) - a `.DS_Store` file will be created. If you don't want `.DS_Store` files tracked by git and uploaded to GitHub, what can you do?
-
-Let's create a route that provides more information. For example, let's see the details of a location and the people associated with that location:
-
-- http://localhost:3333/locations/people
+Create a `GET` route at `/locations/people` that organizes each person according to their location. The data outputted should look like the data below.
 
 ```js
-locations: [
+[
   {
     street: "45 Davis Street",
     city: "Long Island City",
@@ -277,5 +257,3 @@ locations: [
   },
 ];
 ```
-
-If you've completed the previous bonus, either go back to or check out [Express UFO](https://github.com/joinpursuit/express-ufo)
